@@ -2,6 +2,7 @@
 * Author: Tyler Zars, tzars2019@my.fit.edu
 * Course: CSE 1001, Section 01 Fall 2019
 * Project: ordinal.c
+* Print the ordinals from 1 to the user input
 */
 
 
