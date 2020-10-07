@@ -49,7 +49,7 @@ int main(void){
   //printf("%.2lf \n", pressureATM2);
 
 
-  /* Altitute 1: Scan & Calculations*/
+  /* Altitute 3: Scan & Calculations*/
   printf("Enter the third altitude in meters: ");
   scanf("%lf", &inAltitude3);
   printf("\n");
