@@ -8,3 +8,7 @@ This program creates a randomly generated memory game. You are presented a 4 x 4
 # ordinals.c
 This program will print the Ordinal (1st, 2nd, 3rd, 4th, etc) from 1 to a given input (less than 65335). A negitive number will exit the program.
 BUG: Currently, this prints 11th, 12th, 13th for only the 11, 12, 13 and not for all numbers with 11, 12, 13 as the last 2 digits (ex: 1112 prints as 1112th). 
+
+# pressure.c
+This program will print the pressure in all the different measurments. 
+Future Update: Move the calculations into a function
