@@ -38,6 +38,7 @@ int main(void) {
 
   /* Play Game */
   do {
+    /* Print Current Board */
     printf("Here's the board:\n");
     print_board(hidden_board);
 
@@ -53,10 +54,11 @@ int main(void) {
     scanf(" %c", &user_input_loop);
 
     /* Exit Game by User */
-    if (user_input_loop=='Q') {
+    if (user_input_loop == 'Q') {
       break;
     }
-
+    
+    /* Get cards from user */
     printf("Pick first card (row, column): ");
     scanf("%d,%d", &user_row1, &user_column1);
 
@@ -64,7 +66,7 @@ int main(void) {
     scanf("%d,%d", &user_row2, &user_column2);
 
     /* Check Input Until Valid  */
-    while (check_arguements(user_row1, user_column1, user_row2, user_column2, hidden_board, randomized_board)!=0) {
+    while (check_arguements(user_row1, user_column1, user_row2, user_column2, hidden_board, randomized_board) != 0) {
       printf("Input is invalid. Please enter another set of numbers!\n");
       printf("Pick first card (row, column): ");
       scanf("%d,%d", &user_row1, &user_column1);
@@ -85,6 +87,7 @@ int main(void) {
 }
 
 void print_board(char in_board[][BOARD_SIZE]){
+  /* Prints the 2D array board passed as a function parameter */
   printf("    0   1   2   3\n");
   for (int row = 0; row < BOARD_SIZE; row++) {
     printf("%d ", row);
@@ -96,6 +99,7 @@ void print_board(char in_board[][BOARD_SIZE]){
 }
 
 void fill_board(char in_board[][BOARD_SIZE]){
+  /* This function randomly fills the array with pairs of letters */
   srand((unsigned)time(NULL));
   int random_numbers[16];
 
@@ -109,7 +113,7 @@ void fill_board(char in_board[][BOARD_SIZE]){
   //Make Sure No Duplicates
   for (int j = 0; j < 8; j++) {
     for (int r = 0; r < 8; r++) {
-      if (random_numbers[j]==random_numbers[r]&&j!=r) {
+      if ((random_numbers[j]==random_numbers[r]) && (j != r)) {
         random_numbers[r]=rand()%26;
       }
 
@@ -119,7 +123,7 @@ void fill_board(char in_board[][BOARD_SIZE]){
   //Really Double Check
   for (int j = 0; j < 8; j++) {
     for (int r = 0; r < 8; r++) {
-      if (random_numbers[j]==random_numbers[r]&&j!=r) {
+      if ((random_numbers[j]==random_numbers[r]) && (j != r)) {
         random_numbers[r]=rand()%26;
       }
 
@@ -153,6 +157,7 @@ void fill_board(char in_board[][BOARD_SIZE]){
 }
 
 void fill_blank_board(char in_board[][BOARD_SIZE]){
+  /* Fill the board with the blank symbol $ */
   for (int row = 0; row < BOARD_SIZE; row++) {
     for (int column = 0; column < BOARD_SIZE; column++) {
       in_board[row][column] = '$';
@@ -161,21 +166,23 @@ void fill_blank_board(char in_board[][BOARD_SIZE]){
 }
 
 void check_match(int user_row_one, int user_column_one, int user_row_two, int user_column_two, char in_board_covered[][BOARD_SIZE], char in_board_random[][BOARD_SIZE], int *points, int *board_checker){
-  if (in_board_random[user_row_one][user_column_one]==in_board_random[user_row_two][user_column_two]) {
+  /* See if there is a match between the two position and update the if necessary board (accordingly) */
+  if (in_board_random[user_row_one][user_column_one] == in_board_random[user_row_two][user_column_two]) {
     printf("Cards match! You get a point!\n");
-    in_board_covered[user_row_one][user_column_one]=in_board_random[user_row_one][user_column_one];
-    in_board_covered[user_row_two][user_column_two]=in_board_random[user_row_two][user_column_two];
+    in_board_covered[user_row_one][user_column_one] = in_board_random[user_row_one][user_column_one];
+    in_board_covered[user_row_two][user_column_two] = in_board_random[user_row_two][user_column_two];
     printf("Your current points: %d\n", ++*points);
     *board_checker = 0;
   } else {
     printf("Cards do not match! Try again!\n");
-    in_board_covered[user_row_one][user_column_one]=in_board_random[user_row_one][user_column_one];
-    in_board_covered[user_row_two][user_column_two]=in_board_random[user_row_two][user_column_two];
+    in_board_covered[user_row_one][user_column_one] = in_board_random[user_row_one][user_column_one];
+    in_board_covered[user_row_two][user_column_two] = in_board_random[user_row_two][user_column_two];
     *board_checker = 1;
   }
 }
 
 int check_arguements(int user_row_one, int user_column_one, int user_row_two, int user_column_two, char in_board_covered[][BOARD_SIZE], char in_board_random[][BOARD_SIZE]) {
+  /* Ensures the inputs are actually in the array and haven't already been discovered */
   int check = 0;
   if ((user_row_one == user_row_two) && (user_column_one==user_column_two)) {
     check = -1;
